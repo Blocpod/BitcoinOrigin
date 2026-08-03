@@ -2,7 +2,7 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { sealEvidenceReport, verifyEvidenceReport } from '../lib/evidence-v1.mjs';
-import { createSignedCheckpoint, generateOperatorKeyPair, inclusionProof, merkleRoot, verifyInclusion, verifySignedCheckpoint } from '../lib/transparency-v1.mjs';
+import { compareCheckpointViews, createConsistencyProof, createSignedCheckpoint, generateOperatorKeyPair, inclusionProof, merkleRoot, verifyConsistencyProof, verifyInclusion, verifySignedCheckpoint } from '../lib/transparency-v1.mjs';
 import { validateAttestationManifest } from '../lib/build-policy-v1.mjs';
 import { verifyLog } from '../lib/log.mjs';
 
@@ -24,6 +24,12 @@ async function readJson(file) {
   return JSON.parse(await fs.readFile(path.resolve(file), 'utf8'));
 }
 
+function entriesFrom(log) {
+  const entries = Array.isArray(log) ? log : log?.entries;
+  if (!Array.isArray(entries)) throw new Error('log must be an array or contain an entries array');
+  return entries;
+}
+
 async function output(value, file = null) {
   const data = `${JSON.stringify(value, null, 2)}\n`;
   if (!file) return process.stdout.write(data);
@@ -33,7 +39,7 @@ async function output(value, file = null) {
 }
 
 function help() {
-  console.log(`ORIGIN v1 evidence CLI\n\nCommands:\n  origin-v1 seal-report <input.json> [--out sealed.json]\n  origin-v1 verify-report <sealed.json>\n  origin-v1 keygen [--private private.pem] [--public public.pem]\n  origin-v1 checkpoint <log.json> <private.pem> [--operator name] [--out checkpoint.json]\n  origin-v1 verify-checkpoint <checkpoint.json> <public.pem>\n  origin-v1 proof <log.json> <index> [--out proof.json]\n  origin-v1 validate-proof <proof.json>\n  origin-v1 validate-build <manifest.json> [--attestation]\n`);
+  console.log(`ORIGIN v1 evidence CLI\n\nCommands:\n  origin-v1 seal-report <input.json> [--out sealed.json]\n  origin-v1 verify-report <sealed.json>\n  origin-v1 keygen [--private private.pem] [--public public.pem]\n  origin-v1 checkpoint <log.json> <private.pem> [--operator name] [--out checkpoint.json]\n  origin-v1 verify-checkpoint <checkpoint.json> <public.pem>\n  origin-v1 proof <log.json> <index> [--out proof.json]\n  origin-v1 validate-proof <proof.json>\n  origin-v1 consistency <old-log.json> <new-log.json> [--out proof.json]\n  origin-v1 validate-consistency <proof.json>\n  origin-v1 compare-checkpoints <left.json> <right.json>\n  origin-v1 validate-build <manifest.json> [--attestation]\n`);
 }
 
 try {
@@ -70,9 +76,7 @@ try {
     case 'checkpoint': {
       const [logFile, privateFile] = positional();
       if (!logFile || !privateFile) throw new Error('checkpoint requires a log and private key');
-      const log = await readJson(logFile);
-      const entries = Array.isArray(log) ? log : log.entries;
-      if (!Array.isArray(entries)) throw new Error('log must be an array or contain an entries array');
+      const entries = entriesFrom(await readJson(logFile));
       const verified = verifyLog(entries);
       const normalized = { ...verified, size: entries.length, root: merkleRoot(entries.map((entry) => entry.entryHash)) };
       const checkpoint = createSignedCheckpoint(normalized, await fs.readFile(path.resolve(privateFile), 'utf8'), flag('operator', 'origin-operator'));
@@ -90,9 +94,7 @@ try {
     case 'proof': {
       const [logFile, indexText] = positional();
       if (!logFile || indexText === undefined) throw new Error('proof requires a log and index');
-      const log = await readJson(logFile);
-      const entries = Array.isArray(log) ? log : log.entries;
-      if (!Array.isArray(entries)) throw new Error('log must be an array or contain an entries array');
+      const entries = entriesFrom(await readJson(logFile));
       const proof = inclusionProof(entries.map((entry) => entry.entryHash), Number(indexText));
       await output({ ...proof, valid: verifyInclusion(proof) }, flag('out'));
       break;
@@ -103,6 +105,31 @@ try {
       const valid = verifyInclusion(await readJson(file));
       await output({ valid });
       if (!valid) process.exitCode = 1;
+      break;
+    }
+    case 'consistency': {
+      const [oldFile, newFile] = positional();
+      if (!oldFile || !newFile) throw new Error('consistency requires old and new log files');
+      const oldEntries = entriesFrom(await readJson(oldFile));
+      const newEntries = entriesFrom(await readJson(newFile));
+      const proof = createConsistencyProof(oldEntries.map((entry) => entry.entryHash), newEntries.map((entry) => entry.entryHash));
+      await output({ ...proof, valid: verifyConsistencyProof(proof) }, flag('out'));
+      break;
+    }
+    case 'validate-consistency': {
+      const [file] = positional();
+      if (!file) throw new Error('validate-consistency requires a proof file');
+      const valid = verifyConsistencyProof(await readJson(file));
+      await output({ valid });
+      if (!valid) process.exitCode = 1;
+      break;
+    }
+    case 'compare-checkpoints': {
+      const [leftFile, rightFile] = positional();
+      if (!leftFile || !rightFile) throw new Error('compare-checkpoints requires two checkpoint files');
+      const result = compareCheckpointViews(await readJson(leftFile), await readJson(rightFile));
+      await output(result, flag('out'));
+      if (result.conflict) process.exitCode = 2;
       break;
     }
     case 'validate-build': {
