@@ -5,6 +5,7 @@ import { sealEvidenceReport, verifyEvidenceReport } from '../lib/evidence-v1.mjs
 import { compareCheckpointViews, createConsistencyProof, createSignedCheckpoint, generateOperatorKeyPair, inclusionProof, merkleRoot, verifyConsistencyProof, verifyInclusion, verifySignedCheckpoint } from '../lib/transparency-v1.mjs';
 import { validateAttestationManifest } from '../lib/build-policy-v1.mjs';
 import { verifyLog } from '../lib/log.mjs';
+import { reproduceBuild, runBuildManifest } from '../lib/runner.mjs';
 
 const args = process.argv.slice(2);
 const command = args.shift() || 'help';
@@ -39,7 +40,7 @@ async function output(value, file = null) {
 }
 
 function help() {
-  console.log(`ORIGIN v1 evidence CLI\n\nCommands:\n  origin-v1 seal-report <input.json> [--out sealed.json]\n  origin-v1 verify-report <sealed.json>\n  origin-v1 keygen [--private private.pem] [--public public.pem]\n  origin-v1 checkpoint <log.json> <private.pem> [--operator name] [--out checkpoint.json]\n  origin-v1 verify-checkpoint <checkpoint.json> <public.pem>\n  origin-v1 proof <log.json> <index> [--out proof.json]\n  origin-v1 validate-proof <proof.json>\n  origin-v1 consistency <old-log.json> <new-log.json> [--out proof.json]\n  origin-v1 validate-consistency <proof.json>\n  origin-v1 compare-checkpoints <left.json> <right.json>\n  origin-v1 validate-build <manifest.json> [--attestation]\n`);
+  console.log(`ORIGIN v1 evidence CLI\n\nCommands:\n  origin-v1 seal-report <input.json> [--out sealed.json]\n  origin-v1 verify-report <sealed.json>\n  origin-v1 keygen [--private private.pem] [--public public.pem]\n  origin-v1 checkpoint <log.json> <private.pem> [--operator name] [--out checkpoint.json]\n  origin-v1 verify-checkpoint <checkpoint.json> <public.pem>\n  origin-v1 proof <log.json> <index> [--out proof.json]\n  origin-v1 validate-proof <proof.json>\n  origin-v1 consistency <old-log.json> <new-log.json> [--out proof.json]\n  origin-v1 validate-consistency <proof.json>\n  origin-v1 compare-checkpoints <left.json> <right.json>\n  origin-v1 validate-build <manifest.json> [--attestation]\n  origin-v1 run-build <manifest.json> --allow-exec [--attestation] [--keep-work-dir]\n  origin-v1 reproduce-build <manifest.json> --allow-exec [--attestation] [--runs 2]\n`);
 }
 
 try {
@@ -138,6 +139,30 @@ try {
       const result = validateAttestationManifest(await readJson(file), { attestation: args.includes('--attestation') });
       await output(result, flag('out'));
       if (!result.valid) process.exitCode = 1;
+      break;
+    }
+    case 'run-build': {
+      const [file] = positional();
+      if (!file) throw new Error('run-build requires a manifest');
+      const result = await runBuildManifest(await readJson(file), {
+        allowExec: args.includes('--allow-exec'),
+        attestation: args.includes('--attestation'),
+        keepWorkDir: args.includes('--keep-work-dir')
+      });
+      await output(result, flag('out'));
+      break;
+    }
+    case 'reproduce-build': {
+      const [file] = positional();
+      if (!file) throw new Error('reproduce-build requires a manifest');
+      const result = await reproduceBuild(await readJson(file), {
+        allowExec: args.includes('--allow-exec'),
+        attestation: args.includes('--attestation'),
+        keepWorkDir: args.includes('--keep-work-dir'),
+        runs: Number(flag('runs', 2))
+      });
+      await output(result, flag('out'));
+      if (!result.reproducible) process.exitCode = 1;
       break;
     }
     default:
