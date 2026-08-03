@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { sealEvidenceReport, verifyEvidenceReport } from '../lib/evidence-v1.mjs';
-import { generateOperatorKeyPair, createSignedCheckpoint, verifySignedCheckpoint, inclusionProof, verifyInclusion } from '../lib/transparency-v1.mjs';
+import { compareCheckpointViews, createConsistencyProof, createSignedCheckpoint, generateOperatorKeyPair, inclusionProof, verifyConsistencyProof, verifyInclusion, verifySignedCheckpoint } from '../lib/transparency-v1.mjs';
 import { validateAttestationManifest } from '../lib/build-policy-v1.mjs';
 
 test('evidence reports are sealed and tamper evident', () => {
@@ -29,6 +29,22 @@ test('Merkle inclusion proofs verify', () => {
   assert.equal(verifyInclusion(proof), true);
   proof.leaf = '44'.repeat(32);
   assert.equal(verifyInclusion(proof), false);
+});
+
+test('append-only consistency proofs verify and reject mutation', () => {
+  const oldLeaves = ['11'.repeat(32), '22'.repeat(32)];
+  const newLeaves = [...oldLeaves, '33'.repeat(32), '44'.repeat(32)];
+  const proof = createConsistencyProof(oldLeaves, newLeaves);
+  assert.equal(verifyConsistencyProof(proof), true);
+  proof.appendedLeaves[0] = '55'.repeat(32);
+  assert.equal(verifyConsistencyProof(proof), false);
+});
+
+test('checkpoint gossip detects split views at the same tree size', () => {
+  const left = { operator: 'operator-a', size: 10, root: '11'.repeat(32) };
+  const right = { operator: 'operator-a', size: 10, root: '22'.repeat(32) };
+  assert.equal(compareCheckpointViews(left, right).conflict, true);
+  assert.equal(compareCheckpointViews(left, { ...left }).conflict, false);
 });
 
 test('attestation mode rejects mutable and unsafe build inputs', () => {
