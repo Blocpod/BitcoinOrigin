@@ -1,42 +1,48 @@
 # ORIGIN
 
-[![CI](https://github.com/Blocpod/BitcoinOrigin/actions/workflows/ci.yml/badge.svg)](https://github.com/Blocpod/BitcoinOrigin/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-f7931a.svg)](LICENSE) [![Status: Alpha](https://img.shields.io/badge/status-alpha-111111.svg)](ROADMAP.md)
+[![CI](https://github.com/Blocpod/BitcoinOrigin/actions/workflows/ci.yml/badge.svg)](https://github.com/Blocpod/BitcoinOrigin/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-f7931a.svg)](LICENSE) [![Status: Release Candidate](https://img.shields.io/badge/status-v1%20RC-f7931a.svg)](docs/FINISH_CRITERIA.md)
 
 **Bitcoin Protocol Observatory**  
 **Evidence over authority.**
 
 > [!IMPORTANT]
-> ORIGIN is a functional **v0.1 alpha**. Included implementation results are demonstration fixtures, not live audits. Defensible public reports still require pinned releases, synchronized nodes, isolated builds, signed evidence, and independent replication.
+> ORIGIN is a **v1 release candidate** for public review. The verification platform is feature-complete against its published finish criteria. Bundled implementation results remain demonstration fixtures, not live audits.
 
-ORIGIN is an open-source, local-first system for examining Bitcoin-family implementations without appointing a founder, developer group, company, government, or website as the final authority.
+ORIGIN is an open-source, local-first system for examining Bitcoin-family implementations without appointing a founder, developer group, company, government, miner, or website as the final authority.
 
 It keeps three questions separate:
 
 1. What did the founding document claim?
 2. What did historical software and the public record demonstrably do?
-3. What does a current implementation do now?
+3. What does a specific implementation revision do now?
 
-ORIGIN publishes inputs, commands, outputs, uncertainty, and content hashes. It does **not** declare a chain to be “the real Bitcoin,” issue a token, expose private identities, or add a seizure mechanism to any protocol.
+ORIGIN publishes inputs, methods, outputs, uncertainty, content hashes, signed checkpoints, and inclusion proofs. It does **not** declare a chain to be “the real Bitcoin,” issue a token, expose private identities, or add a seizure mechanism to any protocol.
 
-## Current capabilities
+## v1 capabilities
 
-- Responsive public observatory and generated single-file HTML
+- Responsive observatory and portable single-file HTML
 - Dependency-free Node.js CLI and local API
-- Bitcoin genesis transaction, TXID, Merkle root, header, target, and proof-of-work verification
+- Bitcoin genesis transaction, Merkle root, header, target, and proof-of-work verification
 - Canonical report hashing and tamper detection
-- Portable append-only hash chain and bundle Merkle commitment
+- Versioned evidence-report validation and JSON schema
+- Append-only log verification and bundle Merkle commitments
+- Independently verifiable Merkle inclusion proofs
+- Ed25519-signed operator checkpoints
 - secp256k1 key-control claim verification
 - Local JSON-RPC node probing and fingerprint comparison
 - Configurable source control-surface scanning
-- Opt-in reproducible-build runner
+- Opt-in build and reproducibility tooling
+- Attestation-mode validation that rejects mutable or unsafe build inputs
 - Fixture adapters for Bitcoin Core, Bitcoin Knots, btcd, Bitcoin SV Node, and Bitcoin Cash Node
-- Schemas, OpenAPI, Docker, tests, CI, governance, and evidence policy
+- OpenAPI, Docker, tests, CI, governance, evidence policy, accessibility policy, and operator guidance
 
-## Status
+## What “finished” means
 
-ORIGIN is ready for open-source development and local evaluation. It is **not** yet a completed protocol-conformance authority or production transparency network.
+ORIGIN can be finished as a verification platform. It cannot be permanently finished as an audit of changing software.
 
-See [ROADMAP.md](ROADMAP.md), [docs/IMPLEMENTATION_STATUS.md](docs/IMPLEMENTATION_STATUS.md), and [docs/EVIDENCE_POLICY.md](docs/EVIDENCE_POLICY.md).
+A public report may be marked `replicated` only when it names exact source and artifact revisions, records all hashes and environments, keeps consensus and policy layers separate, publishes a signed checkpoint and inclusion proof, and is independently reproduced by another operator.
+
+Read [docs/FINISH_CRITERIA.md](docs/FINISH_CRITERIA.md) and [docs/OPERATOR_GUIDE.md](docs/OPERATOR_GUIDE.md).
 
 ## Quick start
 
@@ -45,15 +51,15 @@ Requires Node.js 22 or newer.
 ```bash
 git clone https://github.com/Blocpod/BitcoinOrigin.git
 cd BitcoinOrigin
-npm run build
+npm run ci
 npm start
 ```
 
 Open `http://127.0.0.1:8787`.
 
-`npm run build` also generates `origin-single.html`, a portable standalone version of the observatory.
+`npm run build` also generates `origin-single.html`, which opens directly through `file://` without a loader or network dependency.
 
-## CLI
+## Existing observatory CLI
 
 ```bash
 node cli/origin.mjs help
@@ -64,16 +70,20 @@ node cli/origin.mjs verify-log data/log/origin-log.json
 node cli/origin.mjs scan-source ./path/to/source --policy config/policies/default.json
 node cli/origin.mjs probe config/nodes.example.json --out .tmp/probes
 node cli/origin.mjs compare-probes .tmp/probes/node-a.json .tmp/probes/node-b.json
-node cli/origin.mjs claim-challenge --claimant 1Example --statement "I attest to control of this key."
 ```
 
-Build commands never run unless `--allow-exec` is supplied:
+## v1 evidence and transparency CLI
 
 ```bash
-node cli/origin.mjs reproduce config/builds/bitcoin-core.example.json --allow-exec --runs 2
+node cli/origin-v1.mjs seal-report report.json --out sealed-report.json
+node cli/origin-v1.mjs verify-report sealed-report.json
+node cli/origin-v1.mjs keygen --private operator-private.pem --public operator-public.pem
+node cli/origin-v1.mjs checkpoint log.json operator-private.pem --operator example --out checkpoint.json
+node cli/origin-v1.mjs verify-checkpoint checkpoint.json operator-public.pem
+node cli/origin-v1.mjs proof log.json 0 --out inclusion-proof.json
+node cli/origin-v1.mjs validate-proof inclusion-proof.json
+node cli/origin-v1.mjs validate-build build.json --attestation
 ```
-
-The included build manifest is an example, not an attestation. Pin the source revision, container digest, dependencies, toolchain, and artifacts first.
 
 ## Evidence statuses
 
@@ -88,22 +98,20 @@ Unknown is never silently converted into support, opposition, or a score penalty
 
 Fixtures prove that ORIGIN's report pipeline, hashing, interface, vectors, and local log work. They do not prove that a current release conforms to any broader interpretation of Bitcoin.
 
-A defensible implementation report requires a live local probe, pinned source and artifacts, release-signature verification under an explicit signer policy, isolated repeat builds, implementation-specific vectors, contextual review, and independent reproduction.
+A defensible implementation report requires a locally controlled synchronized node, pinned source and artifacts, release-signature verification under an explicit signer policy, isolated repeat builds, implementation-specific vectors, contextual review, signed operator evidence, and independent reproduction.
 
 ## Architecture
 
 ```text
-cli/          command-line interface
+cli/          observatory and v1 evidence command-line interfaces
 config/       implementation, policy, node, and build manifests
-data/         charter claims and vectors; generated reports and log
-lib/          cryptography, report, probe, scan, log, and build engines
-schemas/      machine-readable report, claim, and build formats
+data/         charter claims, vectors, generated reports, and logs
+lib/          cryptography, reports, probes, scans, logs, builds, and transparency proofs
+schemas/      machine-readable evidence and provenance formats
 server/       dependency-free local HTTP/API server
 tests/        Node test suite
-web/          responsive observatory interface
+web/          accessible responsive observatory interface
 ```
-
-Read [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) and [docs/METHODOLOGY.md](docs/METHODOLOGY.md) before extending the evidence model.
 
 ## Contributing
 
