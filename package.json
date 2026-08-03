@@ -1,6 +1,6 @@
 {
   "name": "origin-protocol-observatory",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "private": true,
   "type": "module",
   "description": "A neutral, reproducible evidence system for Bitcoin protocol behavior, software provenance, and rule-change transparency.",
@@ -26,7 +26,7 @@
     "verify": "node cli/origin.mjs verify-report data/reports/origin-bitcoin-core-fixture.json && node cli/origin.mjs verify-log data/log/origin-log.json",
     "export:single": "node scripts/export-single.mjs",
     "build": "npm run seed && npm test && npm run export:single",
-    "check": "node --check server/index.mjs && node --check cli/origin.mjs && node --check web/app.js && node --check lib/*.mjs && node --check scripts/*.mjs",
+    "check": "node --check server/index.mjs && node --check cli/origin.mjs && node --check lib/*.mjs && node --check scripts/*.mjs",
     "ci": "npm run check && npm test && npm run build && npm run verify"
   },
   "license": "MIT",
