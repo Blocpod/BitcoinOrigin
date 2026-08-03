@@ -1,0 +1,10 @@
+{
+  "id": "bitcoin-knots",
+  "name": "Bitcoin Knots",
+  "family": "BTC",
+  "repository": "https://github.com/bitcoinknots/bitcoin",
+  "homepage": "https://bitcoinknots.org",
+  "license": "MIT",
+  "adapter": "bitcoin-json-rpc",
+  "notes": "Enhanced Bitcoin node and wallet software configured for comparative observation."
+}

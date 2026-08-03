@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0",
+  "name": "Bitcoin Core reproducibility example",
+  "repository": "https://github.com/bitcoin/bitcoin",
+  "revision": "master",
+  "containerImage": "debian:bookworm-slim",
+  "allowNetwork": true,
+  "buildCommands": [
+    "apt-get update && apt-get install -y build-essential cmake pkg-config python3 libevent-dev libboost-dev",
+    "cmake -B build -DBUILD_GUI=OFF -DBUILD_TESTS=OFF -DBUILD_BENCH=OFF",
+    "cmake --build build -j2"
+  ],
+  "artifacts": [
+    "build/bin/bitcoind"
+  ],
+  "warning": "Example only. Pin a release commit, container digest, dependencies, and SDK inputs before treating output as a reproducibility attestation."
+}

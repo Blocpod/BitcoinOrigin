@@ -1,0 +1,10 @@
+{
+  "id": "bchn",
+  "name": "Bitcoin Cash Node",
+  "family": "BCH",
+  "repository": "https://gitlab.com/bitcoin-cash-node/bitcoin-cash-node",
+  "homepage": "https://bitcoincashnode.org",
+  "license": "MIT",
+  "adapter": "bitcoin-json-rpc",
+  "notes": "Configured as a subject of observation for shared-history and divergent-rule analysis."
+}

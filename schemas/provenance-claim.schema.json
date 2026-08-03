@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://origin.local/schemas/provenance-claim.schema.json",
+  "title": "ORIGIN secp256k1 Key-Control Claim",
+  "type": "object",
+  "required": ["publicKeyHex", "signatureDerBase64", "message", "address"],
+  "properties": {
+    "publicKeyHex": { "type": "string", "pattern": "^(02|03)[0-9a-fA-F]{64}$|^04[0-9a-fA-F]{128}$" },
+    "signatureDerBase64": { "type": "string", "minLength": 8 },
+    "message": { "type": "string", "minLength": 1 },
+    "address": { "type": "string", "minLength": 26 },
+    "network": { "enum": ["mainnet", "testnet"] }
+  },
+  "additionalProperties": false
+}

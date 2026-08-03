@@ -1,0 +1,10 @@
+{
+  "id": "btcd",
+  "name": "btcd",
+  "family": "BTC",
+  "repository": "https://github.com/btcsuite/btcd",
+  "homepage": "https://github.com/btcsuite/btcd",
+  "license": "ISC",
+  "adapter": "bitcoin-json-rpc",
+  "notes": "Independent Go implementation configured for comparative observation."
+}

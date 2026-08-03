@@ -1,0 +1,10 @@
+{
+  "id": "bitcoin-core",
+  "name": "Bitcoin Core",
+  "family": "BTC",
+  "repository": "https://github.com/bitcoin/bitcoin",
+  "homepage": "https://bitcoincore.org",
+  "license": "MIT",
+  "adapter": "bitcoin-json-rpc",
+  "notes": "Configured as a subject of observation. ORIGIN does not endorse or reject an implementation."
+}

@@ -1,0 +1,17 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "ORIGIN Local API",
+    "version": "0.1.0",
+    "description": "Local read and verification API. Live node probing remains CLI-only by design."
+  },
+  "servers": [{ "url": "http://127.0.0.1:8787" }],
+  "paths": {
+    "/api/health": { "get": { "summary": "Service health", "responses": { "200": { "description": "Healthy" } } } },
+    "/api/reports": { "get": { "summary": "Get the current report bundle", "responses": { "200": { "description": "Evidence bundle" } } } },
+    "/api/genesis": { "get": { "summary": "Run the built-in genesis proof", "responses": { "200": { "description": "Proof result" } } } },
+    "/api/log": { "get": { "summary": "Get and verify the local transparency log", "responses": { "200": { "description": "Log and verification result" } } } },
+    "/api/verify-report": { "post": { "summary": "Verify a report content hash", "responses": { "200": { "description": "Verification result" } } } },
+    "/api/verify-claim": { "post": { "summary": "Verify a secp256k1 key-control claim", "responses": { "200": { "description": "Verification result" } } } }
+  }
+}

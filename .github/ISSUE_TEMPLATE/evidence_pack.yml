@@ -1,0 +1,50 @@
+name: Evidence or vector proposal
+description: Propose a new implementation adapter, evidence pack, or conformance vector
+title: "[Evidence]: "
+labels: ["evidence", "proposal"]
+body:
+  - type: input
+    id: subject
+    attributes:
+      label: Subject and revision
+      placeholder: Implementation, release, tag, and commit SHA
+    validations:
+      required: true
+  - type: dropdown
+    id: layer
+    attributes:
+      label: Layer
+      options:
+        - Consensus
+        - Relay or mempool policy
+        - Mining policy
+        - Wallet behavior
+        - Custody or exchange behavior
+        - Build provenance
+        - Historical evidence
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: claim
+    attributes:
+      label: Exact claim or behavior
+      description: State one testable claim and its interpretation boundary.
+    validations:
+      required: true
+  - type: textarea
+    id: inputs
+    attributes:
+      label: Inputs and reproduction method
+      description: List artifacts, hashes, commands, environment, and expected result.
+    validations:
+      required: true
+  - type: checkboxes
+    id: policy
+    attributes:
+      label: Policy checks
+      options:
+        - label: I have read the evidence and neutrality policies.
+          required: true
+        - label: I will not present fixture or imported data as live evidence.
+          required: true

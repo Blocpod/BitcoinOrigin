@@ -1,0 +1,7 @@
+{
+  "publicKeyHex": "04REPLACE_WITH_128_HEX_CHARACTERS_AFTER_04",
+  "signatureDerBase64": "REPLACE_WITH_DER_SIGNATURE_BASE64",
+  "message": "ORIGIN PROVENANCE CLAIM v1\nclaim-type:authorship\nclaimant:historical-key\nnonce:replace-me\nissued-at:2026-08-03T00:00:00.000Z\nstatement:I attest to control of this key for the stated claim.",
+  "address": "REPLACE_WITH_P2PKH_ADDRESS",
+  "network": "mainnet"
+}

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="ORIGIN is an open Bitcoin protocol observatory for reproducible evidence, implementation behavior, and software provenance.">
+  <meta name="theme-color" content="#080808">
+  <title>ORIGIN — Bitcoin Protocol Observatory</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="ORIGIN home">
+      <span class="brand-mark">₿</span>
+      <span>ORIGIN</span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <a href="#observatory">Observatory</a>
+      <a href="#method">Method</a>
+      <a href="#verify">Verify</a>
+      <a class="github-link" href="https://github.com/Blocpod/BitcoinOrigin">GitHub ↗</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="eyebrow"><span class="pulse"></span> Open alpha · local-first</div>
+      <h1>Evidence<br><em>over authority.</em></h1>
+      <p class="hero-copy">A neutral, reproducible observatory for examining what Bitcoin implementations claim, what their software does, and what the evidence can actually prove.</p>
+      <div class="hero-actions">
+        <a class="button primary" href="#observatory">Enter observatory</a>
+        <a class="button secondary" href="https://github.com/Blocpod/BitcoinOrigin">Inspect the source</a>
+      </div>
+      <div class="hero-grid" aria-label="Project principles">
+        <article><span>01</span><strong>Founding claims</strong><p>Record what the white paper says without turning interpretation into fact.</p></article>
+        <article><span>02</span><strong>Historical behavior</strong><p>Recompute observable evidence from transactions, blocks, and public artifacts.</p></article>
+        <article><span>03</span><strong>Current behavior</strong><p>Probe pinned implementations and separate consensus from local policy.</p></article>
+        <article><span>04</span><strong>Provenance</strong><p>Hash reports, verify signatures, and expose unknowns instead of hiding them.</p></article>
+      </div>
+    </section>
+
+    <section class="ticker" aria-hidden="true"><div>NO FOUNDER ORACLE · NO DEVELOPER PRIESTHOOD · NO HIDDEN BACKDOOR · VERIFY THE RULES · </div></section>
+
+    <section id="observatory" class="section observatory">
+      <div class="section-heading">
+        <div><span class="kicker">Protocol observatory</span><h2>One record.<br>Every divergence visible.</h2></div>
+        <p>Included results are demonstration fixtures. Live audit status remains unknown until a pinned release is probed, built, signed, and independently reproduced.</p>
+      </div>
+
+      <div class="status-strip">
+        <div><span id="report-count">0</span><small>implementations</small></div>
+        <div><span id="check-count">0</span><small>evidence checks</small></div>
+        <div><span id="log-status">…</span><small>local log</small></div>
+        <div><span id="bundle-hash">loading</span><small>bundle digest</small></div>
+      </div>
+
+      <div class="observatory-shell">
+        <aside>
+          <div class="aside-label">Subjects</div>
+          <div id="subject-list" class="subject-list"></div>
+        </aside>
+        <div class="report-panel">
+          <div class="report-header">
+            <div><span id="report-mode" class="mode">fixture</span><h3 id="report-name">Loading evidence…</h3><p id="report-meta"></p></div>
+            <div class="coverage"><strong id="coverage-value">0%</strong><span>measured coverage</span></div>
+          </div>
+          <div id="summary-grid" class="summary-grid"></div>
+          <div class="filter-row" role="group" aria-label="Evidence filters">
+            <button class="filter active" data-filter="all">All</button>
+            <button class="filter" data-filter="pass">Pass</button>
+            <button class="filter" data-filter="warn">Review</button>
+            <button class="filter" data-filter="fail">Fail</button>
+            <button class="filter" data-filter="unknown">Unknown</button>
+          </div>
+          <div id="check-list" class="check-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="method" class="section method">
+      <div class="section-heading">
+        <div><span class="kicker">Methodology</span><h2>Separate the layers.<br>Then test the claims.</h2></div>
+        <p>ORIGIN avoids a single ideological score. Every observation is assigned to the layer it can actually support.</p>
+      </div>
+      <div class="method-grid">
+        <article><b>Founding</b><h3>What was claimed?</h3><p>Source passages, publication context, and explicit interpretation boundaries.</p></article>
+        <article><b>Historical</b><h3>What occurred?</h3><p>Transactions, block headers, scripts, release artifacts, and reproducible calculations.</p></article>
+        <article><b>Current</b><h3>What runs now?</h3><p>Exact revisions, local RPC observations, conformance vectors, and policy fingerprints.</p></article>
+        <article><b>Provenance</b><h3>Who signed what?</h3><p>Key control, release signatures, source-to-binary consistency, and independent replication.</p></article>
+      </div>
+    </section>
+
+    <section id="verify" class="section verify">
+      <div class="verify-card">
+        <div><span class="kicker">Built-in proof</span><h2>Do not trust this page.<br>Recompute it.</h2><p>The local engine independently verifies Bitcoin's genesis transaction ID, Merkle root, header hash, compact target, and proof of work.</p></div>
+        <div class="terminal" aria-live="polite">
+          <div class="terminal-bar"><span></span><span></span><span></span><small>origin genesis</small></div>
+          <pre id="genesis-output">$ node cli/origin.mjs genesis
+waiting for local verification…</pre>
+          <button id="run-proof" class="button primary" type="button">Run verification</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section invitation">
+      <span class="kicker">Open source</span>
+      <h2>Disagree with the method?<br>Bring better evidence.</h2>
+      <p>Protocol engineers, cryptographers, historians, reproducible-build specialists, and adversarial reviewers are invited to improve the observatory.</p>
+      <a class="button primary" href="https://github.com/Blocpod/BitcoinOrigin/blob/main/CONTRIBUTING.md">Contribute on GitHub</a>
+    </section>
+  </main>
+
+  <footer><span>ORIGIN / Bitcoin Protocol Observatory</span><span>MIT licensed · v0.1 alpha · Evidence over authority.</span></footer>
+  <script src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://origin.local/schemas/build-manifest.schema.json",
+  "title": "ORIGIN Reproducible Build Manifest",
+  "type": "object",
+  "required": ["schemaVersion", "name", "repository", "revision", "buildCommands", "artifacts"],
+  "properties": {
+    "schemaVersion": { "type": "string" },
+    "name": { "type": "string" },
+    "repository": { "type": "string" },
+    "revision": { "type": "string", "minLength": 7 },
+    "containerImage": { "type": "string" },
+    "allowNetwork": { "type": "boolean", "default": false },
+    "buildCommands": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "artifacts": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+  },
+  "additionalProperties": true
+}

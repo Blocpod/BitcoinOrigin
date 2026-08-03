@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "1.0",
+  "document": {
+    "title": "Bitcoin: A Peer-to-Peer Electronic Cash System",
+    "author": "Satoshi Nakamoto",
+    "published": "2008-10-31",
+    "source": "https://bitcoin.org/bitcoin.pdf"
+  },
+  "claims": [
+    {
+      "id": "wp.peer-to-peer-cash",
+      "section": "Abstract",
+      "label": "Peer-to-peer electronic cash",
+      "statement": "Online payments can be sent directly from one party to another without going through a financial institution.",
+      "testability": "architectural",
+      "notes": "This is a founding objective, not a single consensus rule. ORIGIN records architectural evidence rather than declaring a binary verdict."
+    },
+    {
+      "id": "wp.no-trusted-third-party-double-spend",
+      "section": "Abstract",
+      "label": "No trusted third party for double-spend prevention",
+      "statement": "The network addresses double-spending through a peer-to-peer proof-of-work timestamp chain.",
+      "testability": "behavioral"
+    },
+    {
+      "id": "wp.proof-of-work-history",
+      "section": "Abstract / Proof-of-Work",
+      "label": "Hash-based proof-of-work history",
+      "statement": "Transactions are timestamped into an ongoing proof-of-work chain whose history becomes increasingly costly to alter.",
+      "testability": "behavioral"
+    },
+    {
+      "id": "wp.nodes-verify",
+      "section": "Network / Simplified Payment Verification",
+      "label": "Independent verification",
+      "statement": "Participants can verify transactions and proof-of-work without relying on a central authority.",
+      "testability": "architectural"
+    },
+    {
+      "id": "wp.incentive",
+      "section": "Incentive",
+      "label": "Economic incentive",
+      "statement": "Block rewards and transaction fees align network participation with honest operation.",
+      "testability": "economic"
+    },
+    {
+      "id": "wp.longest-chain",
+      "section": "Proof-of-Work",
+      "label": "Most accumulated proof-of-work",
+      "statement": "The accepted history is represented by the chain with the greatest accumulated proof-of-work.",
+      "testability": "behavioral"
+    }
+  ]
+}

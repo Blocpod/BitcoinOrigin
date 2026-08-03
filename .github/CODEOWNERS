@@ -1,0 +1,10 @@
+# Initial ownership. Expand with independent reviewers as the project matures.
+* @Blocpod
+
+# Security-sensitive and methodological areas require maintainer review.
+/lib/ @Blocpod
+/schemas/ @Blocpod
+/docs/METHODOLOGY.md @Blocpod
+/docs/EVIDENCE_POLICY.md @Blocpod
+/SECURITY.md @Blocpod
+/GOVERNANCE.md @Blocpod

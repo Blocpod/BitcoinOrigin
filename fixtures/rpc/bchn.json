@@ -1,0 +1,17 @@
+{
+  "generatedAt": "2026-08-03T00:00:00.000Z",
+  "mode": "fixture",
+  "config": { "name": "Bitcoin Cash Node", "endpoint": "fixture://bchn" },
+  "fingerprint": {
+    "implementation": "Bitcoin Cash Node",
+    "network": "main",
+    "subversion": "/Bitcoin Cash Node:fixture/",
+    "protocolVersion": 70016,
+    "genesisHash": "000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f",
+    "bestBlockHash": null,
+    "blocks": null,
+    "pruned": false,
+    "digest": "fixture"
+  },
+  "results": {}
+}

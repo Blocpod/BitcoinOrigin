@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://origin.local/schemas/report.schema.json",
+  "title": "ORIGIN Evidence Report",
+  "type": "object",
+  "required": ["schemaVersion", "id", "generatedAt", "mode", "subject", "checks", "summary", "contentHash"],
+  "properties": {
+    "schemaVersion": { "type": "string" },
+    "id": { "type": "string", "minLength": 1 },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "mode": { "enum": ["fixture", "live", "imported", "reproduced", "self-attested"] },
+    "subject": {
+      "type": "object",
+      "required": ["id", "name", "family", "repository"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "family": { "type": "string" },
+        "repository": { "type": "string" },
+        "license": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "layer", "category", "title", "description", "status"],
+        "properties": {
+          "id": { "type": "string" },
+          "layer": { "type": "string" },
+          "category": { "type": "string" },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "status": { "enum": ["pass", "warn", "fail", "unknown"] },
+          "evidence": {},
+          "sourceRefs": { "type": "array", "items": { "type": "string" } },
+          "reproducibleCommand": { "type": ["string", "null"] }
+        },
+        "additionalProperties": true
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": ["pass", "warn", "fail", "unknown", "total", "coverage"],
+      "properties": {
+        "pass": { "type": "integer", "minimum": 0 },
+        "warn": { "type": "integer", "minimum": 0 },
+        "fail": { "type": "integer", "minimum": 0 },
+        "unknown": { "type": "integer", "minimum": 0 },
+        "total": { "type": "integer", "minimum": 0 },
+        "coverage": { "type": "integer", "minimum": 0, "maximum": 100 }
+      }
+    },
+    "contentHash": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  },
+  "additionalProperties": true
+}

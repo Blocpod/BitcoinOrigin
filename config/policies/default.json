@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "1.0",
+  "name": "ORIGIN source-control signal policy",
+  "rules": [
+    {
+      "id": "asset-control-language",
+      "title": "Asset control language",
+      "severity": "high",
+      "pattern": "\\b(blacklist|confiscat(?:e|ion)|reassign(?:ment)?|asset[ _-]?freeze|freeze[ _-]?funds?)\\b",
+      "flags": "i",
+      "interpretation": "May indicate logic capable of restricting, freezing, or reassigning value. A match is not proof that the capability exists or is consensus-enforced."
+    },
+    {
+      "id": "privileged-override-language",
+      "title": "Privileged override language",
+      "severity": "high",
+      "pattern": "\\b(admin(?:istrator)?[ _-]?(?:key|override)|master[ _-]?key|operator[ _-]?override|emergency[ _-]?(?:key|command))\\b",
+      "flags": "i",
+      "interpretation": "May indicate a privileged control path. Review key scope, activation conditions, and whether the path affects consensus or only local operation."
+    },
+    {
+      "id": "history-override-language",
+      "title": "History override language",
+      "severity": "medium",
+      "pattern": "\\b(rollback|invalidateblock|reconsiderblock|reorg[ _-]?override)\\b",
+      "flags": "i",
+      "interpretation": "May indicate local administrative tools or consensus-affecting history controls. Context determines which."
+    },
+    {
+      "id": "trusted-state-language",
+      "title": "Trusted state shortcut",
+      "severity": "medium",
+      "pattern": "\\b(checkpoint|assumevalid|assumeutxo|trusted[ _-]?(?:snapshot|state|height))\\b",
+      "flags": "i",
+      "interpretation": "May indicate a validation shortcut or bootstrap trust assumption. Determine whether it changes accepted consensus or only validation performance."
+    },
+    {
+      "id": "remote-policy-language",
+      "title": "Remote policy control",
+      "severity": "medium",
+      "pattern": "\\b(remote[ _-]?(?:policy|config)|policy[ _-]?server|consensus[ _-]?feature[ _-]?flag)\\b",
+      "flags": "i",
+      "interpretation": "May indicate rules or behavior controlled outside the local binary. Review authentication, failover, and scope."
+    }
+  ]
+}

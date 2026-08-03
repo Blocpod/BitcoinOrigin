@@ -1,0 +1,10 @@
+{
+  "id": "bitcoin-sv-node",
+  "name": "Bitcoin SV Node",
+  "family": "BSV",
+  "repository": "https://github.com/bitcoin-sv/bitcoin-sv",
+  "homepage": "https://bitcoinsv.com",
+  "license": "Open BSV License",
+  "adapter": "bitcoin-json-rpc",
+  "notes": "Configured as a subject of observation. Claims made by the project are treated as claims, not ORIGIN conclusions."
+}

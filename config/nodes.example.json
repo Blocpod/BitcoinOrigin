@@ -1,0 +1,13 @@
+{
+  "nodes": [
+    {
+      "name": "Local Bitcoin node",
+      "endpoint": "http://127.0.0.1:8332",
+      "auth": {
+        "username": "rpc-user",
+        "password": "replace-me",
+        "timeoutMs": 10000
+      }
+    }
+  ]
+}
