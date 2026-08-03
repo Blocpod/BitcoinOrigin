@@ -17,7 +17,7 @@ jobs:
   verify:
     name: Node ${{ matrix.node }}
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
@@ -27,13 +27,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-      - name: Static checks
-        run: npm run check
-      - name: Tests
-        run: npm test
-      - name: Build fixture evidence and standalone site
-        run: npm run build
-      - name: Verify generated report and transparency log
-        run: npm run verify
-      - name: Smoke test CLI
+      - name: Run complete verification pipeline
+        run: npm run ci
+      - name: Smoke test observatory CLI
         run: node cli/origin.mjs genesis > /tmp/genesis.json
+      - name: Smoke test v1 evidence CLI
+        run: node cli/origin-v1.mjs help > /tmp/origin-v1-help.txt
+      - name: Confirm standalone artifact
+        run: test -s origin-single.html
