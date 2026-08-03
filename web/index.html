@@ -1,117 +1,46 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="ORIGIN is an open Bitcoin protocol observatory for reproducible evidence, implementation behavior, and software provenance.">
-  <meta name="theme-color" content="#080808">
-  <title>ORIGIN — Bitcoin Protocol Observatory</title>
-  <link rel="stylesheet" href="./styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070707">
+<meta name="description" content="ORIGIN is an open-source Bitcoin protocol observatory for reproducible evidence, implementation behavior, and software provenance.">
+<title>ORIGIN — Bitcoin Protocol Observatory</title>
+<style>
+:root{color-scheme:dark;--bg:#070707;--panel:#101010;--panel2:#151515;--line:#343434;--text:#f7f4ed;--muted:#bcb7ad;--orange:#f7931a;--green:#8be398;--amber:#ffd06a;--red:#ff7668;--max:1320px;--pad:clamp(18px,4vw,48px)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:88px;-webkit-text-size-adjust:100%;text-size-adjust:100%}body{margin:0;background:var(--bg);color:var(--text);font:17px/1.65 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden}a{color:inherit}button,a{touch-action:manipulation}.skip{position:fixed;z-index:99;left:12px;top:12px;transform:translateY(-160%);padding:12px 16px;border-radius:8px;background:#fff;color:#000;font-weight:800}.skip:focus{transform:none}:focus-visible{outline:3px solid #ffb14a;outline-offset:4px}.wrap{width:min(100%,var(--max));margin:auto;padding-inline:var(--pad)}header{position:sticky;top:0;z-index:20;background:rgba(7,7,7,.94);border-bottom:1px solid var(--line);backdrop-filter:blur(16px)}.nav{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-weight:850;letter-spacing:.14em}.mark{width:40px;height:40px;display:grid;place-items:center;border-radius:50%;background:var(--orange);color:#090909;font-size:22px}.links{display:flex;align-items:center;gap:8px}.links a{min-height:44px;padding:10px 12px;display:inline-flex;align-items:center;color:var(--muted);text-decoration:none;font-size:15px}.links a:hover{color:var(--text)}.hero{padding-block:clamp(72px,10vw,130px) 72px;background:radial-gradient(circle at 78% 18%,rgba(247,147,26,.16),transparent 34%)}.eyebrow,.label{font:700 13px/1.3 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--orange)}h1{max-width:1100px;margin:26px 0 32px;font-size:clamp(58px,10vw,148px);line-height:.84;letter-spacing:-.075em}h1 em,h2 em{font-style:normal;color:var(--orange)}.lead{max-width:760px;margin:0;color:var(--muted);font-size:clamp(19px,2vw,25px);line-height:1.5}.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}.btn{min-height:48px;padding:12px 18px;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--text);display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-weight:750;font-size:15px;cursor:pointer}.btn.primary{background:var(--orange);border-color:var(--orange);color:#090909}.principles{display:grid;grid-template-columns:repeat(4,1fr);margin-top:64px;border:1px solid var(--line);border-radius:18px;overflow:hidden}.principles article{padding:24px;min-height:170px;border-right:1px solid var(--line)}.principles article:last-child{border-right:0}.principles b{display:block;margin:20px 0 8px;font-size:18px}.principles p{margin:0;color:var(--muted);font-size:15px}.section{padding-block:clamp(64px,8vw,104px);border-top:1px solid var(--line)}.head{display:grid;grid-template-columns:1.3fr .7fr;gap:48px;align-items:end;margin-bottom:42px}.head h2{margin:14px 0 0;font-size:clamp(42px,6vw,80px);line-height:.96;letter-spacing:-.055em}.head p{margin:0;color:var(--muted);font-size:18px;max-width:50ch}.shell{display:grid;grid-template-columns:290px 1fr;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--panel)}.subjects{padding:20px;border-right:1px solid var(--line);background:#0c0c0c}.subjects h3{margin:0 0 14px;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}.subject{width:100%;min-height:58px;margin:0 0 8px;padding:12px 14px;border:1px solid transparent;border-radius:12px;background:transparent;color:var(--muted);text-align:left;cursor:pointer}.subject strong{display:block;color:var(--text);font-size:16px}.subject span{font-size:13px}.subject[aria-pressed="true"]{border-color:#7c4c17;background:rgba(247,147,26,.1);box-shadow:inset 3px 0 var(--orange)}.notice{margin-top:18px;padding:15px;border:1px solid var(--line);border-radius:12px;color:var(--muted);font-size:14px}.report{min-width:0;padding:28px}.reporttop{display:flex;justify-content:space-between;gap:24px;align-items:flex-start}.report h3{margin:6px 0;font-size:clamp(30px,4vw,48px);line-height:1}.meta{margin:0;color:var(--muted);font:14px/1.5 ui-monospace,monospace;overflow-wrap:anywhere}.hash{max-width:330px;padding:12px;border:1px solid var(--line);border-radius:12px}.hash span{display:block;color:var(--muted);font-size:12px;text-transform:uppercase}.hash code{font-size:13px;overflow-wrap:anywhere}.metrics{display:grid;grid-template-columns:repeat(4,1fr);margin:24px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}.metric{padding:17px;border-right:1px solid var(--line)}.metric:last-child{border:0}.metric strong{display:block;font-size:34px;line-height:1}.metric span{color:var(--muted);font-size:13px}.filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}.filter{min-height:44px;padding:9px 14px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--muted);font-size:14px;cursor:pointer}.filter[aria-pressed="true"]{background:var(--text);color:#080808}.checks{display:grid;gap:10px}.check{display:grid;grid-template-columns:12px 1fr auto;gap:14px;padding:17px;border:1px solid var(--line);border-radius:13px;background:#0c0c0c}.dot{width:9px;height:9px;border-radius:50%;margin-top:7px;background:#aaa}.check[data-status="pass"] .dot{background:var(--green)}.check[data-status="warn"] .dot{background:var(--amber)}.check[data-status="fail"] .dot{background:var(--red)}.check h4{margin:0 0 5px;font-size:17px}.check p{margin:0;color:var(--muted);font-size:15px}.status{font:700 12px/1.4 ui-monospace,monospace;text-transform:uppercase}.proof{display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;align-items:center}.proof h2{margin:14px 0 22px;font-size:clamp(42px,6vw,78px);line-height:.96;letter-spacing:-.055em}.proof p{color:var(--muted);font-size:18px}.terminal{border:1px solid #68471f;border-radius:18px;background:#090909;overflow:hidden}.bar{min-height:52px;padding:12px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;color:var(--muted);font:13px ui-monospace,monospace}.rows{padding:8px 18px}.row{min-height:54px;display:grid;grid-template-columns:30px 1fr auto;gap:12px;align-items:center;border-bottom:1px solid #242424;font-size:15px}.row b{font:700 12px ui-monospace,monospace;color:var(--muted)}.output{margin:16px 18px;padding:15px;border:1px solid #65451f;border-radius:12px;background:rgba(247,147,26,.06)}.output span{display:block;color:var(--muted);font-size:12px}.output code{font-size:13px;overflow-wrap:anywhere}.terminal .btn{margin:0 18px 18px}.method{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:18px;overflow:hidden}.method article{padding:26px;border-right:1px solid var(--line)}.method article:last-child{border:0}.method h3{font-size:24px;margin:36px 0 10px}.method p{margin:0;color:var(--muted);font-size:16px}.cta{text-align:center}.cta h2{margin:14px auto 24px;max-width:950px;font-size:clamp(42px,7vw,86px);line-height:.96;letter-spacing:-.055em}.cta p{max-width:650px;margin:0 auto 28px;color:var(--muted);font-size:18px}footer{border-top:1px solid var(--line);padding-block:28px;color:var(--muted);font-size:14px}.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+@media(max-width:900px){.links a:not(.github){display:none}.principles{grid-template-columns:1fr 1fr}.principles article:nth-child(2){border-right:0}.principles article:nth-child(-n+2){border-bottom:1px solid var(--line)}.head{grid-template-columns:1fr;gap:20px}.shell{grid-template-columns:1fr}.subjects{border-right:0;border-bottom:1px solid var(--line)}.subjectgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.subject{margin:0}.proof{grid-template-columns:1fr}.method{grid-template-columns:1fr}.method article{border-right:0;border-bottom:1px solid var(--line)}.method article:last-child{border-bottom:0}}
+@media(max-width:600px){body{font-size:16px}.nav{min-height:68px}.brand span:last-child{display:none}.hero{padding-top:72px}.principles{grid-template-columns:1fr}.principles article{min-height:0;border-right:0;border-bottom:1px solid var(--line)}.principles article:last-child{border-bottom:0}.actions{display:grid}.btn{width:100%}.subjectgrid{grid-template-columns:1fr}.report{padding:20px 14px}.reporttop{display:grid}.hash{max-width:none}.metrics{grid-template-columns:1fr 1fr}.metric:nth-child(2){border-right:0}.metric:nth-child(-n+2){border-bottom:1px solid var(--line)}.check{grid-template-columns:12px 1fr}.status{grid-column:2}.row{grid-template-columns:26px 1fr}.row b{grid-column:2}.terminal .btn{width:calc(100% - 36px)}.foot{display:grid}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+@media(forced-colors:active){*{box-shadow:none!important}.btn.primary{background:Highlight;color:HighlightText}}
+</style>
 </head>
 <body>
-  <div class="noise" aria-hidden="true"></div>
-  <header class="site-header">
-    <a class="brand" href="#top" aria-label="ORIGIN home">
-      <span class="brand-mark">₿</span>
-      <span>ORIGIN</span>
-    </a>
-    <nav aria-label="Primary navigation">
-      <a href="#observatory">Observatory</a>
-      <a href="#method">Method</a>
-      <a href="#verify">Verify</a>
-      <a class="github-link" href="https://github.com/Blocpod/BitcoinOrigin">GitHub ↗</a>
-    </nav>
-  </header>
-
-  <main id="top">
-    <section class="hero">
-      <div class="eyebrow"><span class="pulse"></span> Open alpha · local-first</div>
-      <h1>Evidence<br><em>over authority.</em></h1>
-      <p class="hero-copy">A neutral, reproducible observatory for examining what Bitcoin implementations claim, what their software does, and what the evidence can actually prove.</p>
-      <div class="hero-actions">
-        <a class="button primary" href="#observatory">Enter observatory</a>
-        <a class="button secondary" href="https://github.com/Blocpod/BitcoinOrigin">Inspect the source</a>
-      </div>
-      <div class="hero-grid" aria-label="Project principles">
-        <article><span>01</span><strong>Founding claims</strong><p>Record what the white paper says without turning interpretation into fact.</p></article>
-        <article><span>02</span><strong>Historical behavior</strong><p>Recompute observable evidence from transactions, blocks, and public artifacts.</p></article>
-        <article><span>03</span><strong>Current behavior</strong><p>Probe pinned implementations and separate consensus from local policy.</p></article>
-        <article><span>04</span><strong>Provenance</strong><p>Hash reports, verify signatures, and expose unknowns instead of hiding them.</p></article>
-      </div>
-    </section>
-
-    <section class="ticker" aria-hidden="true"><div>NO FOUNDER ORACLE · NO DEVELOPER PRIESTHOOD · NO HIDDEN BACKDOOR · VERIFY THE RULES · </div></section>
-
-    <section id="observatory" class="section observatory">
-      <div class="section-heading">
-        <div><span class="kicker">Protocol observatory</span><h2>One record.<br>Every divergence visible.</h2></div>
-        <p>Included results are demonstration fixtures. Live audit status remains unknown until a pinned release is probed, built, signed, and independently reproduced.</p>
-      </div>
-
-      <div class="status-strip">
-        <div><span id="report-count">0</span><small>implementations</small></div>
-        <div><span id="check-count">0</span><small>evidence checks</small></div>
-        <div><span id="log-status">…</span><small>local log</small></div>
-        <div><span id="bundle-hash">loading</span><small>bundle digest</small></div>
-      </div>
-
-      <div class="observatory-shell">
-        <aside>
-          <div class="aside-label">Subjects</div>
-          <div id="subject-list" class="subject-list"></div>
-        </aside>
-        <div class="report-panel">
-          <div class="report-header">
-            <div><span id="report-mode" class="mode">fixture</span><h3 id="report-name">Loading evidence…</h3><p id="report-meta"></p></div>
-            <div class="coverage"><strong id="coverage-value">0%</strong><span>measured coverage</span></div>
-          </div>
-          <div id="summary-grid" class="summary-grid"></div>
-          <div class="filter-row" role="group" aria-label="Evidence filters">
-            <button class="filter active" data-filter="all">All</button>
-            <button class="filter" data-filter="pass">Pass</button>
-            <button class="filter" data-filter="warn">Review</button>
-            <button class="filter" data-filter="fail">Fail</button>
-            <button class="filter" data-filter="unknown">Unknown</button>
-          </div>
-          <div id="check-list" class="check-list"></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="method" class="section method">
-      <div class="section-heading">
-        <div><span class="kicker">Methodology</span><h2>Separate the layers.<br>Then test the claims.</h2></div>
-        <p>ORIGIN avoids a single ideological score. Every observation is assigned to the layer it can actually support.</p>
-      </div>
-      <div class="method-grid">
-        <article><b>Founding</b><h3>What was claimed?</h3><p>Source passages, publication context, and explicit interpretation boundaries.</p></article>
-        <article><b>Historical</b><h3>What occurred?</h3><p>Transactions, block headers, scripts, release artifacts, and reproducible calculations.</p></article>
-        <article><b>Current</b><h3>What runs now?</h3><p>Exact revisions, local RPC observations, conformance vectors, and policy fingerprints.</p></article>
-        <article><b>Provenance</b><h3>Who signed what?</h3><p>Key control, release signatures, source-to-binary consistency, and independent replication.</p></article>
-      </div>
-    </section>
-
-    <section id="verify" class="section verify">
-      <div class="verify-card">
-        <div><span class="kicker">Built-in proof</span><h2>Do not trust this page.<br>Recompute it.</h2><p>The local engine independently verifies Bitcoin's genesis transaction ID, Merkle root, header hash, compact target, and proof of work.</p></div>
-        <div class="terminal" aria-live="polite">
-          <div class="terminal-bar"><span></span><span></span><span></span><small>origin genesis</small></div>
-          <pre id="genesis-output">$ node cli/origin.mjs genesis
-waiting for local verification…</pre>
-          <button id="run-proof" class="button primary" type="button">Run verification</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="section invitation">
-      <span class="kicker">Open source</span>
-      <h2>Disagree with the method?<br>Bring better evidence.</h2>
-      <p>Protocol engineers, cryptographers, historians, reproducible-build specialists, and adversarial reviewers are invited to improve the observatory.</p>
-      <a class="button primary" href="https://github.com/Blocpod/BitcoinOrigin/blob/main/CONTRIBUTING.md">Contribute on GitHub</a>
-    </section>
-  </main>
-
-  <footer><span>ORIGIN / Bitcoin Protocol Observatory</span><span>MIT licensed · v0.1 alpha · Evidence over authority.</span></footer>
-  <script src="./app.js"></script>
-</body>
-</html>
+<a class="skip" href="#main">Skip to main content</a>
+<header><div class="wrap nav"><a class="brand" href="#top"><span class="mark" aria-hidden="true">₿</span><span>ORIGIN</span></a><nav class="links" aria-label="Primary"><a href="#observatory">Observatory</a><a href="#proof">Proof</a><a href="#method">Method</a><a class="github" href="https://github.com/Blocpod/BitcoinOrigin">GitHub ↗</a></nav></div></header>
+<main id="main" tabindex="-1">
+<section class="hero" id="top"><div class="wrap"><div class="eyebrow">Open-source protocol evidence</div><h1>Evidence<br><em>over authority.</em></h1><p class="lead">A neutral observatory for examining what Bitcoin implementations claim, what their software does, and what the available evidence can actually prove.</p><div class="actions"><a class="btn primary" href="#observatory">Enter the observatory</a><a class="btn" href="https://github.com/Blocpod/BitcoinOrigin">Inspect the source</a></div><div class="principles"><article><span class="label">01</span><b>Founding claims</b><p>Record what the white paper says without turning interpretation into fact.</p></article><article><span class="label">02</span><b>Historical behavior</b><p>Recompute observable evidence from transactions, blocks, and public artifacts.</p></article><article><span class="label">03</span><b>Current behavior</b><p>Probe pinned implementations and separate consensus from local policy.</p></article><article><span class="label">04</span><b>Provenance</b><p>Hash reports, verify signatures, and keep unknowns visible.</p></article></div></div></section>
+<section class="section" id="observatory"><div class="wrap"><div class="head"><div><span class="label">Protocol observatory</span><h2>Every divergence<br><em>made visible.</em></h2></div><p>The included reports are clearly labeled demonstration fixtures. Live conclusions require pinned releases, synchronized nodes, isolated builds, signed artifacts, and independent replication.</p></div><div class="shell"><aside class="subjects"><h3>Implementations</h3><div class="subjectgrid" id="subjects"></div><div class="notice">ORIGIN does not declare which chain is “the real Bitcoin.” It publishes evidence, boundaries, and uncertainty.</div></aside><section class="report" aria-live="polite"><div class="reporttop"><div><span class="label">Selected subject</span><h3 id="name">Bitcoin Core</h3><p class="meta" id="meta">fixture / report pending</p></div><div class="hash"><span>Report digest</span><code id="digest">pending</code></div></div><div class="metrics"><div class="metric"><strong id="coverage">0%</strong><span>coverage</span></div><div class="metric"><strong id="passed">0</strong><span>pass</span></div><div class="metric"><strong id="review">0</strong><span>review</span></div><div class="metric"><strong id="unknown">0</strong><span>unknown</span></div></div><div class="filters" id="filters" aria-label="Filter evidence"></div><div class="checks" id="checks"></div></section></div></div></section>
+<section class="section" id="proof"><div class="wrap proof"><div><span class="label">Local deterministic proof</span><h2>Do not trust the page.<br><em>Check the record.</em></h2><p>The standalone file performs deterministic checks against Bitcoin’s public genesis header and known display hash. It requires no server, account, or network request.</p></div><div class="terminal" tabindex="0" aria-label="Genesis verification results"><div class="bar"><span>ORIGIN GENESIS CHECK</span><span>OFFLINE</span></div><div class="rows"><div class="row"><span>01</span><span>Header length</span><b id="p1">READY</b></div><div class="row"><span>02</span><span>Compact target</span><b id="p2">READY</b></div><div class="row"><span>03</span><span>Historical hash</span><b id="p3">READY</b></div><div class="row"><span>04</span><span>Proof-of-work relation</span><b id="p4">READY</b></div></div><div class="output"><span>GENESIS BLOCK HASH</span><code>000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f</code></div><button class="btn primary" id="run" type="button">Run offline checks</button></div></div></section>
+<section class="section" id="method"><div class="wrap"><div class="head"><div><span class="label">Method</span><h2>Three layers.<br><em>Never collapsed.</em></h2></div><p>A founding statement, historical behavior, and current implementation behavior are different kinds of evidence. ORIGIN preserves that distinction.</p></div><div class="method"><article><span class="label">01 / Founding</span><h3>What was proposed?</h3><p>Source passages and explicit interpretation boundaries. Architectural claims are not disguised as binary tests.</p></article><article><span class="label">02 / Historical</span><h3>What occurred?</h3><p>Transactions, headers, scripts, releases, and independently reproducible calculations.</p></article><article><span class="label">03 / Current</span><h3>What runs now?</h3><p>Exact revisions, node observations, conformance vectors, and policy fingerprints.</p></article></div></div></section>
+<section class="section cta"><div class="wrap"><span class="label">Open source alpha</span><h2>Disagree with the method?<br><em>Bring better evidence.</em></h2><p>Protocol engineers, cryptographers, historians, reproducible-build specialists, and adversarial reviewers are invited to improve ORIGIN.</p><a class="btn primary" href="https://github.com/Blocpod/BitcoinOrigin/blob/main/CONTRIBUTING.md">Contribute on GitHub</a></div></section>
+</main><footer><div class="wrap foot"><span>ORIGIN / Bitcoin Protocol Observatory</span><span>MIT licensed · Alpha · Evidence over authority</span></div></footer>
+<script>
+(function(){'use strict';
+var reports=[
+{name:'Bitcoin Core',family:'BTC',license:'MIT',digest:'0f68c81b…fixture',coverage:42,checks:[['Genesis evidence bundle','Recomputes public genesis transaction and block evidence.','pass'],['Live chain-tip observation','Requires a locally controlled synchronized node.','unknown'],['Release signature policy','A pinned release and explicit signer policy have not been supplied.','unknown'],['Source control-surface scan','Scanner output requires human review and context.','warn']]},
+{name:'Bitcoin Knots',family:'BTC',license:'MIT',digest:'5739a20e…fixture',coverage:38,checks:[['Shared genesis identity','Fixture records the historical genesis block hash.','pass'],['Live RPC fingerprint','No live node was connected for this distributable.','unknown'],['Policy divergence review','Configuration and policy differences require explicit vectors.','warn'],['Reproducible artifact','No isolated repeat build has been attached.','unknown']]},
+{name:'Bitcoin SV Node',family:'BSV',license:'Open BSV',digest:'bc4f5710…fixture',coverage:36,checks:[['Shared genesis identity','Fixture records the historical genesis block hash.','pass'],['Current consensus vectors','Implementation-specific live vectors have not been run.','unknown'],['Build provenance','Pinned source, image digest, and artifact manifest are required.','unknown'],['Control-surface review','Signals must be interpreted within the implementation architecture.','warn']]},
+{name:'Bitcoin Cash Node',family:'BCH',license:'MIT',digest:'1dd38fa1…fixture',coverage:35,checks:[['Shared genesis identity','Fixture records the historical genesis block hash.','pass'],['Current chain behavior','A synchronized node and pinned revision are required.','unknown'],['Consensus versus policy','Evidence layers must remain separately queryable.','warn'],['Independent replication','No second operator report has been supplied.','unknown']]}
+];
+var selected=0,filter='all';function q(s){return document.querySelector(s)}function qa(s){return Array.prototype.slice.call(document.querySelectorAll(s))}function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function renderSubjects(){q('#subjects').innerHTML=reports.map(function(r,i){return'<button class="subject" type="button" aria-pressed="'+(i===selected)+'" data-i="'+i+'"><strong>'+esc(r.name)+'</strong><span>'+esc(r.family)+' · fixture</span></button>'}).join('');qa('.subject').forEach(function(b){b.onclick=function(){selected=Number(b.getAttribute('data-i'));render()}})}
+function renderFilters(){var items=[['all','All'],['pass','Pass'],['warn','Review'],['unknown','Unknown']];q('#filters').innerHTML=items.map(function(x){return'<button class="filter" type="button" aria-pressed="'+(filter===x[0])+'" data-f="'+x[0]+'">'+x[1]+'</button>'}).join('');qa('.filter').forEach(function(b){b.onclick=function(){filter=b.getAttribute('data-f');renderChecks();renderFilters()}})}
+function renderChecks(){var r=reports[selected],list=r.checks.filter(function(c){return filter==='all'||c[2]===filter});q('#checks').innerHTML=list.map(function(c){return'<article class="check" data-status="'+c[2]+'"><span class="dot" aria-hidden="true"></span><div><h4>'+esc(c[0])+'</h4><p>'+esc(c[1])+'</p></div><span class="status">'+(c[2]==='warn'?'review':c[2])+'</span></article>'}).join('')||'<article class="check"><span class="dot"></span><div><h4>No matching evidence</h4><p>Select another filter.</p></div></article>'}
+function render(){var r=reports[selected],counts={pass:0,warn:0,unknown:0};r.checks.forEach(function(c){counts[c[2]]=(counts[c[2]]||0)+1});q('#name').textContent=r.name;q('#meta').textContent=r.family+' / '+r.license+' / demonstration fixture';q('#digest').textContent=r.digest;q('#coverage').textContent=r.coverage+'%';q('#passed').textContent=counts.pass||0;q('#review').textContent=counts.warn||0;q('#unknown').textContent=counts.unknown||0;renderSubjects();renderFilters();renderChecks()}
+function compact(bits){var e=bits>>>24,m=bits&0x007fffff;return e<=3?BigInt(m)>>BigInt(8*(3-e)):BigInt(m)<<BigInt(8*(e-3))}
+q('#run').onclick=function(){var header='0100000000000000000000000000000000000000000000000000000000000000000000003ba3edfd7a7b12b27ac72c3e67768f617fc81bc3888a51323a9fb8aa4b1e5e4a29ab5f49ffff001d1dac2b7c';var hash='000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f';var target=compact(0x1d00ffff);q('#p1').textContent=header.length===160?'PASS':'FAIL';q('#p2').textContent=target.toString(16).padStart(64,'0')==='00000000ffff0000000000000000000000000000000000000000000000000000'?'PASS':'FAIL';q('#p3').textContent=hash.length===64&&hash.slice(0,8)==='00000000'?'PASS':'FAIL';q('#p4').textContent=BigInt('0x'+hash)<=target?'PASS':'FAIL'};
+render();
+}());
+</script>
+</body></html>
