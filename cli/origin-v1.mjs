@@ -2,7 +2,7 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { sealEvidenceReport, verifyEvidenceReport } from '../lib/evidence-v1.mjs';
-import { createSignedCheckpoint, generateOperatorKeyPair, inclusionProof, verifyInclusion, verifySignedCheckpoint } from '../lib/transparency-v1.mjs';
+import { createSignedCheckpoint, generateOperatorKeyPair, inclusionProof, merkleRoot, verifyInclusion, verifySignedCheckpoint } from '../lib/transparency-v1.mjs';
 import { validateAttestationManifest } from '../lib/build-policy-v1.mjs';
 import { verifyLog } from '../lib/log.mjs';
 
@@ -71,8 +71,10 @@ try {
       const [logFile, privateFile] = positional();
       if (!logFile || !privateFile) throw new Error('checkpoint requires a log and private key');
       const log = await readJson(logFile);
-      const verified = verifyLog(log);
-      const normalized = { ...verified, size: Array.isArray(log) ? log.length : log.entries?.length || 0, root: verified.merkleRoot || verified.root };
+      const entries = Array.isArray(log) ? log : log.entries;
+      if (!Array.isArray(entries)) throw new Error('log must be an array or contain an entries array');
+      const verified = verifyLog(entries);
+      const normalized = { ...verified, size: entries.length, root: merkleRoot(entries.map((entry) => entry.entryHash)) };
       const checkpoint = createSignedCheckpoint(normalized, await fs.readFile(path.resolve(privateFile), 'utf8'), flag('operator', 'origin-operator'));
       await output(checkpoint, flag('out'));
       break;
@@ -90,6 +92,7 @@ try {
       if (!logFile || indexText === undefined) throw new Error('proof requires a log and index');
       const log = await readJson(logFile);
       const entries = Array.isArray(log) ? log : log.entries;
+      if (!Array.isArray(entries)) throw new Error('log must be an array or contain an entries array');
       const proof = inclusionProof(entries.map((entry) => entry.entryHash), Number(indexText));
       await output({ ...proof, valid: verifyInclusion(proof) }, flag('out'));
       break;
