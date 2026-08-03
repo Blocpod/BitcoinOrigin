@@ -1,6 +1,6 @@
 {
   "name": "origin-protocol-observatory",
-  "version": "0.1.0-alpha.2",
+  "version": "1.0.0-rc.1",
   "private": true,
   "type": "module",
   "description": "A neutral, reproducible evidence system for Bitcoin protocol behavior, software provenance, and rule-change transparency.",
@@ -16,17 +16,18 @@
     "node": ">=22"
   },
   "bin": {
-    "origin": "./cli/origin.mjs"
+    "origin": "./cli/origin.mjs",
+    "origin-v1": "./cli/origin-v1.mjs"
   },
   "scripts": {
     "dev": "node server/index.mjs",
     "start": "node server/index.mjs",
     "seed": "node scripts/generate-demo.mjs",
     "test": "node --test tests/*.test.mjs",
-    "verify": "node cli/origin.mjs verify-report data/reports/origin-bitcoin-core-fixture.json && node cli/origin.mjs verify-log data/log/origin-log.json",
+    "verify": "node cli/origin.mjs verify-report data/reports/origin-bitcoin-core-fixture.json && node cli/origin.mjs verify-log data/log/origin-log.json && node --test tests/v1.test.mjs",
     "export:single": "node scripts/export-single.mjs",
     "build": "npm run seed && npm test && npm run export:single",
-    "check": "node --check server/index.mjs && node --check cli/origin.mjs && node --check lib/*.mjs && node --check scripts/*.mjs",
+    "check": "node --check server/index.mjs && node --check cli/origin.mjs && node --check cli/origin-v1.mjs && node --check lib/*.mjs && node --check scripts/*.mjs",
     "ci": "npm run check && npm test && npm run build && npm run verify"
   },
   "license": "MIT",
