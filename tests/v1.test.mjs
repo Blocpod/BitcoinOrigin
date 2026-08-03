@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { sealEvidenceReport, verifyEvidenceReport } from '../lib/evidence-v1.mjs';
 import { compareCheckpointViews, createConsistencyProof, createSignedCheckpoint, generateOperatorKeyPair, inclusionProof, verifyConsistencyProof, verifyInclusion, verifySignedCheckpoint } from '../lib/transparency-v1.mjs';
 import { validateAttestationManifest } from '../lib/build-policy-v1.mjs';
+import { runBuildManifest } from '../lib/runner.mjs';
 
 test('evidence reports are sealed and tamper evident', () => {
   const report = sealEvidenceReport({
@@ -59,4 +60,19 @@ test('attestation mode rejects mutable and unsafe build inputs', () => {
   }, { attestation: true });
   assert.equal(result.valid, false);
   assert.ok(result.errors.length >= 6);
+});
+
+test('hardened runner rejects unsafe attestation before clone or execution', async () => {
+  await assert.rejects(
+    () => runBuildManifest({
+      source: { repository: 'https://example.test/repo.git', commit: 'main' },
+      environment: { image: 'node:latest', imageDigest: 'latest' },
+      network: 'bridge',
+      runAsRoot: true,
+      commands: ['echo unsafe'],
+      limits: { timeoutSeconds: 30 },
+      expectedArtifacts: []
+    }, { allowExec: true, attestation: true }),
+    /Attestation manifest rejected|root host process/
+  );
 });
