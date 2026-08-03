@@ -62,7 +62,7 @@ test('attestation mode rejects mutable and unsafe build inputs', () => {
   assert.ok(result.errors.length >= 6);
 });
 
-test('hardened runner rejects unsafe attestation before clone or execution', async () => {
+test('hardened runner preserves structured evidence when an attestation is rejected', async () => {
   await assert.rejects(
     () => runBuildManifest({
       source: { repository: 'https://example.test/repo.git', commit: 'main' },
@@ -73,6 +73,14 @@ test('hardened runner rejects unsafe attestation before clone or execution', asy
       limits: { timeoutSeconds: 30 },
       expectedArtifacts: []
     }, { allowExec: true, attestation: true }),
-    /Attestation manifest rejected|root host process/
+    (error) => {
+      assert.equal(error.name, 'BuildEvidenceError');
+      assert.equal(error.evidence.success, false);
+      assert.equal(error.evidence.stage, 'manifest-validation');
+      assert.equal(error.evidence.attestationMode, true);
+      assert.match(error.evidence.manifestDigest, /^[0-9a-f]{64}$/);
+      assert.match(error.evidence.error.message, /Attestation manifest rejected|root host process/);
+      return true;
+    }
   );
 });
