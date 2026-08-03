@@ -1,44 +1,49 @@
 # ORIGIN Roadmap
 
-## v0.1 — Open alpha
+## Completed: engineering foundation
 
-- Publish the complete source tree
-- Stabilize schemas and fixture labeling
-- Establish governance, security, and contribution processes
-- Expand automated CLI and API testing
-- Invite adversarial review across Bitcoin ecosystems
+- Complete source tree, MIT license, governance, security policy, contribution process, and CI
+- Accessible responsive observatory and offline standalone HTML
+- Deterministic Bitcoin genesis verification
+- Versioned evidence reports, canonical content hashes, and tamper detection
+- Local node probing, cross-implementation fingerprints, source scanning, and fixture vectors
+- Append-only log verification and bundle Merkle commitments
+- Merkle inclusion proofs and append-only consistency proofs
+- Ed25519-signed operator checkpoints and split-view comparison
+- Attestation-manifest validation for pinned revisions and environments
+- Hardened non-root, network-disabled container build mode
+- Repeat-build artifact comparison
+- Verified release workflow with checksums and GitHub artifact provenance
+- Operator guide, finish criteria, evidence policy, threat model, and accessibility standard
 
-## v0.2 — Evidence engine
+## Current: v1 release candidate validation
 
-- Add RFC 8785-compatible canonical JSON
-- Add BIP-322 and legacy signed-message verification
-- Add challenge expiration, nonces, and replay protection
-- Add artifact manifests and signed operator attestations
-- Expand transaction, script, block, reorganization, and difficulty vectors
-- Separate consensus, relay, mining, wallet, and custody evidence in the UI
+The software platform is feature-complete against [docs/FINISH_CRITERIA.md](docs/FINISH_CRITERIA.md). The remaining gates are public validation rather than missing core architecture:
 
-## v0.3 — Reproducible implementation audits
+- independent security and methodology review;
+- manual accessibility testing on iPadOS Safari, Android Chrome, keyboard-only navigation, 200% zoom, reduced motion, and screen readers;
+- at least two independent operators running the same public evidence pack;
+- first reports built from pinned releases, synchronized nodes, isolated builds, signed checkpoints, and independent replication;
+- stable public-key rotation and revocation policy for operators;
+- public checkpoint mirrors or external commitment channels.
 
-- Pin source revisions, toolchains, dependencies, and container digests
-- Run network-disabled builds in disposable environments
-- Generate SBOMs and provenance attestations
-- Verify upstream signatures under explicit signer policies
-- Publish first independently repeated implementation reports
+No fixture may be relabeled as a live audit to satisfy these gates.
 
-## v0.4 — Public transparency network
+## v1.1: interoperability and deeper evidence packs
 
-- Signed checkpoints
-- Inclusion and consistency proofs
-- Independent monitors and mirrors
-- Gossip and split-view detection
-- External commitment anchoring
+- BIP-322 generic signed-message verification and relevant legacy-message compatibility
+- Challenge expiration, domain separation, nonces, and replay protection
+- Expanded transaction, script, block, difficulty, reorganization, Merkle, and SPV vectors
+- Implementation-specific adapters for unsupported RPC or internal test interfaces
+- SBOM generation and upstream release-signature policy packs
+- Compact consistency proofs for large public logs
 
-## v1.0 — Defensible public observatory
+## v2: distributed public observatory
 
-- Multiple independent operators
-- Reviewed methodology and evidence-admission policy
-- Stable report and attestation formats
-- Published conformance packs for supported implementations
-- Public release process and long-term governance
+- Multiple independently governed log operators and monitors
+- Automated checkpoint gossip and mirror discovery
+- External commitment adapters
+- Public replicated reports for supported implementation revisions
+- Long-term maintainer rotation and cross-ecosystem review council
 
-Roadmap ordering may change when security or methodology findings require it. No milestone will be declared complete using fixture evidence alone.
+A software milestone can be complete. A report remains valid only for the exact revision, artifacts, methods, and evidence it names.
